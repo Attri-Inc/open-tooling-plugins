@@ -3,6 +3,13 @@ description: "Quick pipeline overview and recent CRM activity"
 argument-hint: ""
 ---
 
+## CRM Status
+!`cat ~/.open-tooling/state.json 2>/dev/null || echo '{"setup_required": true}'`
+
+**If `setup_required` is true above, stop here.** Tell the user: "Open Tooling CRM isn't set up yet. Run `/crm-setup` first to get everything installed and connected."
+
+---
+
 # /crm-status
 
 Get a quick overview of your CRM pipeline and recent activity.

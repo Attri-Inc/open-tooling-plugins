@@ -1,11 +1,8 @@
 {
   "mcpServers": {
     "open-tooling-crm": {
-      "command": "npx",
-      "args": ["tsx", "./src/mcp.ts"],
-      "env": {
-        "CRM_DB_PATH": "./data/crm.db"
-      }
+      "command": "/bin/bash",
+      "args": ["-c", "exec $HOME/.open-tooling/start-mcp.sh"]
     }
   }
 }

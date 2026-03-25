@@ -3,6 +3,13 @@ description: "Get a full briefing on a contact, company, or deal with evidence t
 argument-hint: "contact, company, or deal name"
 ---
 
+## CRM Status
+!`cat ~/.open-tooling/state.json 2>/dev/null || echo '{"setup_required": true}'`
+
+**If `setup_required` is true above, stop here.** Tell the user: "Open Tooling CRM isn't set up yet. Run `/crm-setup` first to get everything installed and connected."
+
+---
+
 # /crm-brief
 
 Get a comprehensive briefing on any entity in Open Tooling CRM, backed by evidence.

@@ -3,6 +3,13 @@ description: "Ingest an email, transcript, or document into the CRM evidence cha
 argument-hint: "paste or describe the content to ingest"
 ---
 
+## CRM Status
+!`cat ~/.open-tooling/state.json 2>/dev/null || echo '{"setup_required": true}'`
+
+**If `setup_required` is true above, stop here.** Tell the user: "Open Tooling CRM isn't set up yet. Run `/crm-setup` first to get everything installed and connected."
+
+---
+
 # /crm-ingest
 
 Ingest raw evidence into Open Tooling CRM and extract structured knowledge.

@@ -3,6 +3,13 @@ name: memory-layer
 description: "Triggered when the user asks what's known about a contact, company, or deal, or wants to update, verify, or manage CRM knowledge. Teaches Claude the progressive retrieval pattern and evidence chain."
 ---
 
+## CRM Status
+!`cat ~/.open-tooling/state.json 2>/dev/null || echo '{"setup_required": true}'`
+
+**If `setup_required` is true above, stop here.** Tell the user: "Open Tooling CRM isn't set up yet. Run `/crm-setup` first to get everything installed and connected." Do not proceed with any memory layer operations.
+
+---
+
 # Memory Layer
 
 You are helping a user interact with Open Tooling CRM's evidence-first memory system.

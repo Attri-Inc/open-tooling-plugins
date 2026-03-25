@@ -3,6 +3,13 @@ name: entity-management
 description: "Triggered when the user wants to create, update, search, or manage CRM entities (contacts, companies, deals, interactions, tasks). Provides best practices for entity operations and relationship management."
 ---
 
+## CRM Status
+!`cat ~/.open-tooling/state.json 2>/dev/null || echo '{"setup_required": true}'`
+
+**If `setup_required` is true above, stop here.** Tell the user: "Open Tooling CRM isn't set up yet. Run `/crm-setup` first to get everything installed and connected." Do not proceed with any entity operations.
+
+---
+
 # Entity Management
 
 You are helping a user manage CRM entities in Open Tooling CRM.
