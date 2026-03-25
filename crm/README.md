@@ -26,6 +26,10 @@ Gives Claude the knowledge layer to use [Open Tooling CRM](https://github.com/At
 1. Open Tooling CRM running locally (`npm run dev`)
 2. MCP server connected (see main repo for config)
 
+## Part of Open Tooling
+
+CRM is the first plugin in the Open Tooling family. More modules coming soon — HR, Finance, Project Management, and Legal — each with their own dedicated plugin for instant agent-ready workflows.
+
 ## Connectors (Optional)
 
 See [CONNECTORS.md](./CONNECTORS.md) for integrations that supercharge the plugin.

@@ -19,8 +19,10 @@ In Claude Desktop or Cowork:
 
 ## Coming Soon
 
-- **HR** — AI-native human resources and people ops
-- **Finance** — AI-native financial operations and reporting
+- **HR** — AI-native human resources, hiring, and onboarding
+- **Finance** — AI-native invoicing, expense tracking, and reporting
+- **Project Management** — AI-native tasks, sprints, and resource allocation
+- **Legal** — AI-native contract lifecycle and compliance tracking
 
 ## License
 
