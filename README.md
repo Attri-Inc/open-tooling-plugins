@@ -8,14 +8,17 @@ Plugin marketplace for [Open Tooling](https://github.com/Attri-Inc/open-tooling)
 |--------|-------------|--------|
 | [CRM](./crm) | Agent-first CRM with evidence-based memory | v0.1.0 |
 
-## Installation
+## Setup
 
-In Claude Desktop or Cowork:
+In [Claude Cowork](https://claude.com) (desktop app):
 
-1. Go to **Customize → Browse plugins → Personal → Add marketplace**
-2. Enter: `Attri-Inc/open-tooling-plugins`
-3. Click **Sync**
-4. Install the plugins you need
+1. Open the app and switch to **Cowork** mode
+2. Click **Customize** in the sidebar
+3. Under **Personal plugins**, click the **+** button
+4. Select **Add marketplace**
+5. Enter: `Attri-Inc/open-tooling-plugins`
+6. Click **Sync**
+7. Install the plugins you need — each one gives Claude the knowledge layer to use that tool optimally out of the box
 
 ## Coming Soon
 
