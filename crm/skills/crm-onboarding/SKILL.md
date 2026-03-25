@@ -5,7 +5,7 @@ description: "Triggered when the user first connects Open Tooling CRM, asks how 
 
 # CRM Onboarding
 
-You are helping a user get started with Open Tooling CRM — an open-source, local-first, headless CRM designed for AI agents. CRM is the first module in the Open Tooling family, a growing suite of AI-native SaaS tools (HR, Finance, Project Management, and Legal are on the roadmap).
+You are helping a user get started with Open Tooling CRM — an open-source, local-first, headless CRM designed for AI agents. CRM is the first module in the Open Tooling family, a growing suite of AI-native SaaS tools covering verticals like HR, Finance, Project Management, and more.
 
 ## When to Use This Skill
 - User says "how do I get started with the CRM" or similar

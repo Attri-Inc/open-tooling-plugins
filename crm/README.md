@@ -28,7 +28,7 @@ Gives Claude the knowledge layer to use [Open Tooling CRM](https://github.com/At
 
 ## Part of Open Tooling
 
-CRM is the first plugin in the Open Tooling family. More modules coming soon — HR, Finance, Project Management, and Legal — each with their own dedicated plugin for instant agent-ready workflows.
+CRM is the first plugin in the Open Tooling family. More modules coming soon — covering verticals like HR, Finance, Project Management, and Procurement — each with their own dedicated plugin.
 
 ## Connectors (Optional)
 
