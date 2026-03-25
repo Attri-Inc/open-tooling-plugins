@@ -10,15 +10,13 @@ Plugin marketplace for [Open Tooling](https://github.com/Attri-Inc/open-tooling)
 
 ## Setup
 
-In [Claude Cowork](https://claude.com) (desktop app):
+In [Claude](https://claude.com) (desktop app):
 
-1. Open the app and switch to **Cowork** mode
-2. Click **Customize** in the sidebar
-3. Under **Personal plugins**, click the **+** button
-4. Select **Add marketplace**
-5. Enter: `Attri-Inc/open-tooling-plugins`
-6. Click **Sync**
-7. Install the plugins you need — each one gives Claude the knowledge layer to use that tool optimally out of the box
+1. **Customize → Add plugin → Add marketplace**
+2. Enter: `Attri-Inc/open-tooling-plugins`
+3. Click **Sync**
+
+Then browse and install plugins via **Customize → Add plugin → Browse plugins → Personal → open-tooling-plugins**. Each plugin gives Claude the knowledge layer to use that tool optimally out of the box.
 
 ## Coming Soon
 
