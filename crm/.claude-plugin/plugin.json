@@ -1,0 +1,9 @@
+{
+  "name": "crm",
+  "version": "0.1.0",
+  "description": "Agent-first CRM skills for Claude — gives Claude the knowledge layer to use Open Tooling CRM optimally from the get-go",
+  "author": {
+    "name": "Attri AI"
+  },
+  "keywords": ["crm", "agent-first", "evidence", "memory", "mcp"]
+}

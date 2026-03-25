@@ -1,0 +1,9 @@
+{
+  "name": "open-tooling-plugins",
+  "version": "0.1.0",
+  "description": "Plugin marketplace for Open Tooling — AI-native open-source SaaS tools by Attri AI",
+  "author": {
+    "name": "Attri AI"
+  },
+  "keywords": ["crm", "ai-native", "agent-first", "open-source", "mcp"]
+}

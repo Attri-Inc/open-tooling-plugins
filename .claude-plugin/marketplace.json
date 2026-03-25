@@ -1,0 +1,16 @@
+{
+  "name": "open-tooling-plugins",
+  "version": "0.1.0",
+  "description": "Plugin marketplace for Open Tooling — AI-native open-source SaaS tools",
+  "owner": {
+    "name": "Attri AI"
+  },
+  "plugins": [
+    {
+      "name": "crm",
+      "version": "0.1.0",
+      "description": "Agent-first CRM skills for Claude — evidence ingestion, entity management, memory layer, and more",
+      "source": "./crm"
+    }
+  ]
+}
