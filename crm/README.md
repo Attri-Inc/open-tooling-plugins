@@ -1,6 +1,6 @@
 # Open Tooling CRM Plugin
 
-Gives Claude the knowledge layer to use [Open Tooling CRM](https://github.com/Attri-Inc/open-tooling-crm) optimally from the get-go.
+Gives Claude the knowledge layer to use [Open Tooling CRM](https://github.com/Attri-Inc/open-tooling/tree/main/crm) optimally from the get-go.
 
 ## What's Included
 

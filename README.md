@@ -1,6 +1,6 @@
 # Open Tooling Plugins
 
-Plugin marketplace for [Open Tooling](https://github.com/Attri-Inc) — AI-native open-source SaaS tools by Attri AI.
+Plugin marketplace for [Open Tooling](https://github.com/Attri-Inc/open-tooling) — AI-native open-source SaaS tools by Attri AI.
 
 ## Available Plugins
 

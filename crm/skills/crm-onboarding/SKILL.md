@@ -16,10 +16,11 @@ You are helping a user get started with Open Tooling CRM — an open-source, loc
 
 ### Step 1: Verify Connection
 Use the `search_entities` tool with no filters to check if the MCP server is responding. If it fails, guide the user through setup:
-1. Clone the repo: `git clone https://github.com/Attri-Inc/open-tooling-crm`
-2. Install: `npm install && cp .env.example .env`
-3. Start: `npm run dev`
-4. Connect MCP server in their client config
+1. Clone the repo: `git clone https://github.com/Attri-Inc/open-tooling.git`
+2. Navigate to CRM: `cd open-tooling/crm`
+3. Install: `npm install && cp .env.example .env`
+4. Start: `npm run dev`
+5. Connect MCP server in their client config
 
 ### Step 2: Seed Sample Data (Optional)
 If the database is empty, suggest: `npm run seed` to populate with sample contacts, companies, deals, interactions, and memory layer data (artifacts, observations, briefs).
