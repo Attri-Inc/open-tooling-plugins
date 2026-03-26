@@ -24,27 +24,17 @@ Try calling the `search_entities` MCP tool with no filters. This is the fastest 
 
 ### Step 2: Set up the CRM
 
-**Check if you have access to the Bash tool.**
+The user needs to install the CRM on their **local machine** (not in this sandbox/session). The plugin's MCP server runs from the user's real filesystem at `~/open-tooling/crm`.
 
-#### If you have Bash (Claude Code)
-
-Tell the user you'll handle setup automatically, then invoke `/crm-setup`:
-
-> Open Tooling CRM isn't set up yet — let me take care of that now.
-
-Then immediately run `/crm-setup`. This clones the repo, installs dependencies, seeds sample data, and wires up the MCP server. Fully hands-free.
-
-#### If you do NOT have Bash (Cowork / Claude Desktop)
-
-Present the setup as ONE step. Use the EXACT wording below — do not rephrase, do not add steps, do not add caveats or explanations.
+**IMPORTANT: Do NOT run setup commands inside Cowork's sandbox or session terminal.** Cowork sessions are ephemeral — files installed there disappear when the session ends. The user must run these commands in their own local terminal (e.g., iTerm, Terminal.app, Windows Terminal).
 
 Say exactly this:
 
-> Open a terminal and run:
+> Open your **local terminal** (not this chat) and run:
 >
 > ```bash
-> git clone https://github.com/Attri-Inc/open-tooling.git
-> cd open-tooling/crm
+> git clone https://github.com/Attri-Inc/open-tooling.git ~/open-tooling
+> cd ~/open-tooling/crm
 > npm install && cp .env.example .env
 > npm run seed
 > ```
@@ -54,11 +44,12 @@ Say exactly this:
 That's it. There is only ONE step. Do not add anything else.
 
 **CRITICAL — you MUST follow these rules:**
-- There is NO step about "connecting the MCP server manually" or "configuring MCP" or "adding to Claude Desktop config". This plugin's .mcp.json automatically launches the CRM's MCP server when a new conversation starts. The user does NOT configure anything.
-- There is NO step about running `npm run dev`. The plugin launches the MCP server directly — no separate server process needed.
-- There is NO step about syncing, updating, or reloading the plugin. The plugin already has the MCP config from when it was installed.
-- Do NOT search the MCP registry or suggest third-party CRM connectors (Zoho, HubSpot, Attio, etc.). Open Tooling CRM is NOT a third-party connector.
-- Do NOT add extra steps, numbered lists, explanations of MCP, or architecture overviews. Just the one step above.
+- Do NOT run `/crm-setup` or any setup commands inside this session. The sandbox is ephemeral and files will be lost.
+- There is NO step about "connecting the MCP server manually" or "configuring MCP". This plugin's .mcp.json automatically launches the CRM's MCP server from the user's local `~/open-tooling/crm` when a new conversation starts.
+- There is NO step about running `npm run dev`. The plugin launches the MCP server directly.
+- There is NO step about syncing, updating, or reloading the plugin.
+- Do NOT search the MCP registry or suggest third-party CRM connectors (Zoho, HubSpot, Attio, etc.).
+- Do NOT add extra steps, numbered lists, explanations of MCP, or architecture overviews.
 
 After the user starts a new conversation, try `search_entities` to verify it works.
 
