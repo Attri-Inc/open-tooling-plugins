@@ -28,7 +28,9 @@ The user needs to install the CRM on their **local machine** (not in this sandbo
 
 **IMPORTANT: Do NOT run setup commands inside Cowork's sandbox or session terminal.** Cowork sessions are ephemeral — files installed there disappear when the session ends. The user must run these commands in their own local terminal (e.g., iTerm, Terminal.app, Windows Terminal).
 
-Say exactly this:
+Detect the user's OS and show the appropriate commands.
+
+**macOS / Linux** — say exactly this:
 
 > Open your **local terminal** (not this chat) and run:
 >
@@ -36,6 +38,19 @@ Say exactly this:
 > git clone https://github.com/Attri-Inc/open-tooling.git ~/open-tooling
 > cd ~/open-tooling/crm
 > npm install && cp .env.example .env
+> npm run seed
+> ```
+>
+> Let me know when that's done and I'll configure the MCP connection for you.
+
+**Windows** — say exactly this:
+
+> Open **PowerShell** or **Windows Terminal** (not this chat) and run:
+>
+> ```powershell
+> git clone https://github.com/Attri-Inc/open-tooling.git $HOME\open-tooling
+> cd $HOME\open-tooling\crm
+> npm install; copy .env.example .env
 > npm run seed
 > ```
 >
@@ -51,16 +66,15 @@ Once the user confirms the install is done, say:
 
 If the user agrees, update the config file.
 
-**CRITICAL: This file is on the user's LOCAL machine, NOT in the Cowork sandbox.** The path is:
+**CRITICAL: This file is on the user's LOCAL machine, NOT in the Cowork sandbox.** The path depends on the OS:
 
-```
-~/Library/Application Support/Claude/claude_desktop_config.json
-```
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json` (typically `C:\Users\<username>\AppData\Roaming\Claude\claude_desktop_config.json`)
 
-You MUST access this file on the **host filesystem** — request access to the `~/Library/Application Support/Claude/` folder if prompted. Do NOT look for it inside the sandbox working directory. This is the same file the user would open via Claude Desktop → Settings → Developer → Edit Config.
+You MUST access this file on the **host filesystem** — request access to the appropriate folder if prompted. Do NOT look for it inside the sandbox working directory. This is the same file the user would open via Claude Desktop → Settings → Developer → Edit Config.
 
 Steps:
-1. Request access to the folder and read the file at the full local path above
+1. Request access to the folder and read the file at the correct local path for the user's OS
 2. Parse the existing JSON (it may have `preferences` and other keys — preserve them all)
 3. If there's no `mcpServers` key, create it. Add the `open-tooling-crm` entry:
    ```json
@@ -74,7 +88,7 @@ Steps:
      }
    }
    ```
-   Replace `<HOME>` with the user's actual home directory path (e.g., `/Users/username`). Determine this from the config file path or the CRM install path.
+   Replace `<HOME>` with the user's actual home directory path (e.g., `/Users/username` on macOS, `C:/Users/username` on Windows). Use forward slashes on all platforms. Determine this from the config file path or the CRM install path.
 4. Write the updated JSON back. **Do not overwrite other keys** — only add/update `mcpServers["open-tooling-crm"]`.
 5. Say:
 

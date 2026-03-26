@@ -39,7 +39,11 @@ Gives Claude the knowledge layer to use [Open Tooling CRM](https://github.com/At
      }
    }
    ```
-   Replace the paths with your actual install location (e.g., `/Users/yourname/open-tooling/crm`).
+   Replace the paths with your actual install location (e.g., `/Users/yourname/open-tooling/crm` on macOS, `C:/Users/yourname/open-tooling/crm` on Windows).
+
+   Config file location:
+   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 4. **Restart Claude Desktop** and start a new conversation — all commands and skills are live
 
 Or just ask Claude to "use Open Tooling CRM" — it detects that setup is needed and walks you through it.
