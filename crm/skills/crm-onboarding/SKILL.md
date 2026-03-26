@@ -45,19 +45,20 @@ Present the setup as ONE step with a single copy-paste block. Do NOT split it in
 > cd open-tooling/crm
 > npm install && cp .env.example .env
 > npm run seed
-> npm run dev
 > ```
 >
-> Once the server says it's running at localhost:8787, come back here and tell me — I'll take it from there.
+> Once that's done, come back here and sync the plugin — I'll take it from there.
 
 **IMPORTANT — do NOT do any of the following:**
 - Do NOT add a step about "connecting the MCP server" or "configuring MCP". The MCP connection is already configured by this plugin — it just needs the server to be running. The user does NOT need to touch any MCP config.
 - Do NOT search the MCP registry or suggest third-party CRM connectors (Zoho, HubSpot, etc.). Open Tooling CRM has its own MCP server bundled with this plugin.
 - Do NOT add extra steps, explanations, or caveats beyond the terminal commands above. Keep it simple.
 
-When the user confirms the server is running, tell them to sync the plugin to activate the MCP connection:
+When the user confirms the install is done, tell them to sync the plugin to activate the MCP connection:
 - In Cowork: **Customize → Plugins → Sync**
 - In Claude Desktop: restart the app
+
+The plugin's MCP config automatically launches the CRM's MCP server — the user does not need to run `npm run dev` or start any server manually. The MCP server is started by the plugin when synced.
 
 Then try `search_entities` to verify it works.
 
