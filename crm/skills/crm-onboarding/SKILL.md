@@ -53,9 +53,9 @@ Present the setup as exactly TWO steps. Use the EXACT wording below — do not r
 
 **Step 2.** When the user confirms, say exactly this:
 
-> Now sync the plugin to connect the MCP server:
+> Now update the plugin so it can connect to your CRM:
 >
-> **Customize → Plugins → open-tooling-plugins → Sync**
+> **Customize → Add plugin → Browse plugins → Personal → click "..." next to open-tooling-plugins → Check for updates**
 >
 > Then start a new conversation and I'll have full access to your CRM data.
 
