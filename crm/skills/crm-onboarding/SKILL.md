@@ -36,9 +36,9 @@ Then immediately run `/crm-setup`. This clones the repo, installs dependencies, 
 
 #### If you do NOT have Bash (Cowork / Claude Desktop)
 
-Present the setup as exactly TWO steps. Use the EXACT wording below — do not rephrase, do not add steps, do not add caveats or explanations.
+Present the setup as ONE step. Use the EXACT wording below — do not rephrase, do not add steps, do not add caveats or explanations.
 
-**Step 1.** Say exactly this:
+Say exactly this:
 
 > Open a terminal and run:
 >
@@ -49,25 +49,18 @@ Present the setup as exactly TWO steps. Use the EXACT wording below — do not r
 > npm run seed
 > ```
 >
-> Let me know when it's done.
+> Then start a new conversation here and I'll have full access to your CRM data.
 
-**Step 2.** When the user confirms, say exactly this:
-
-> Now update the plugin so it can connect to your CRM:
->
-> **Customize → Add plugin → Browse plugins → Personal → click "..." next to open-tooling-plugins → Check for updates**
->
-> Then start a new conversation and I'll have full access to your CRM data.
-
-That's it. There are only two steps. Do not add anything else.
+That's it. There is only ONE step. Do not add anything else.
 
 **CRITICAL — you MUST follow these rules:**
-- There is NO step about "connecting the MCP server manually" or "configuring MCP" or "adding to Claude Desktop config". This plugin's .mcp.json automatically launches the CRM's MCP server when the plugin syncs. The user does NOT configure anything.
+- There is NO step about "connecting the MCP server manually" or "configuring MCP" or "adding to Claude Desktop config". This plugin's .mcp.json automatically launches the CRM's MCP server when a new conversation starts. The user does NOT configure anything.
 - There is NO step about running `npm run dev`. The plugin launches the MCP server directly — no separate server process needed.
+- There is NO step about syncing, updating, or reloading the plugin. The plugin already has the MCP config from when it was installed.
 - Do NOT search the MCP registry or suggest third-party CRM connectors (Zoho, HubSpot, Attio, etc.). Open Tooling CRM is NOT a third-party connector.
-- Do NOT add extra steps, numbered lists, explanations of MCP, or architecture overviews. Just the two steps above.
+- Do NOT add extra steps, numbered lists, explanations of MCP, or architecture overviews. Just the one step above.
 
-After the user syncs and starts a new conversation, try `search_entities` to verify it works.
+After the user starts a new conversation, try `search_entities` to verify it works.
 
 ---
 
