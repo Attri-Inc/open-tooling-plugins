@@ -1,14 +1,11 @@
 ---
 name: crm-onboarding
-description: "Triggered when the user first asks about Open Tooling CRM, wants to get started, or asks Claude to use the CRM. Checks if setup has been done and guides accordingly."
+description: "Triggered when the user first asks about Open Tooling CRM, wants to get started, or asks Claude to use the CRM. Detects the environment and guides setup accordingly."
 ---
 
 # CRM Onboarding
 
-You are helping a user get started with Open Tooling CRM — an open-source, local-first, headless CRM designed for AI agents. CRM is the first module in the Open Tooling family, a growing suite of AI-native SaaS tools.
-
-## Setup Status
-!`cat ~/.open-tooling/state.json 2>/dev/null || echo '{"setup_required": true}'`
+You are helping a user get started with Open Tooling CRM — an open-source, local-first, headless CRM designed for AI agents. CRM is the first module in the Open Tooling family.
 
 ## When to Use This Skill
 - User says "how do I get started with the CRM" or similar
@@ -18,40 +15,65 @@ You are helping a user get started with Open Tooling CRM — an open-source, loc
 
 ## Onboarding Flow
 
-### If `setup_required` is true (state file missing)
+### Step 1: Check if CRM is already connected
 
-The CRM hasn't been set up yet. Tell the user you'll get it set up now, then **immediately invoke `/crm-setup`** — don't wait for the user to run it themselves. Say something like:
+Try calling the `search_entities` MCP tool with no filters. This is the fastest way to know if the CRM is set up and connected.
+
+- **If it works** → skip to "CRM is Connected" below.
+- **If the tool is not available or fails** → the CRM needs to be set up. Continue to Step 2.
+
+### Step 2: Set up the CRM
+
+**Check if you have access to the Bash tool.**
+
+#### If you have Bash (Claude Code)
+
+Tell the user you'll handle setup automatically, then invoke `/crm-setup`:
 
 > Open Tooling CRM isn't set up yet — let me take care of that now.
 
-Then invoke `/crm-setup`. This gives the user a fully hands-free experience.
+Then immediately run `/crm-setup`. This clones the repo, installs dependencies, seeds sample data, and wires up the MCP server. Fully hands-free.
 
-### If setup is complete (state file has `crm_path`)
+#### If you do NOT have Bash (Cowork / Claude Desktop)
 
-#### Step 1: Verify Connection
-Use the `search_entities` tool with no filters to check if the MCP server is responding.
+Give the user these commands to run in their terminal. Keep it concise — no wall of text:
 
-- If it fails: the server might not be running. Tell the user to start it: `cd <crm_path> && npm run dev`, or check that they ran `/reload-plugins` after setup.
-- If it works: proceed to Step 2.
+> To get Open Tooling CRM running, open a terminal and run:
+>
+> ```bash
+> git clone https://github.com/Attri-Inc/open-tooling.git
+> cd open-tooling/crm && npm install && cp .env.example .env
+> npm run seed && npm run dev
+> ```
+>
+> Once the server is running at localhost:8787, come back here and I'll connect to it.
 
-#### Step 2: First Queries
-Walk the user through practical examples:
+Do NOT search the MCP registry or suggest third-party CRM connectors. Open Tooling CRM uses its own MCP server bundled with this plugin — it is not a third-party connector.
+
+After the user confirms the server is running, tell them to reload the plugin so the MCP server connects. In Cowork: **Customize → Plugins → Sync**. In Claude Desktop: restart.
+
+---
+
+## CRM is Connected
+
+Once `search_entities` works, walk the user through what they can do:
+
 1. **Search contacts**: Use `search_entities` with `type: "contact"`
-2. **View a deal pipeline**: Use `search_entities` with `type: "deal"`
-3. **Check relationships**: Use `traverse_graph` on a contact to see their company, deals, interactions
-4. **Read a brief**: Use `list_briefs` then `get_brief` to see a derived summary with evidence citations
-5. **Drill into evidence**: From a brief, follow observation IDs to `get_observation`, then to `get_artifact` for raw source
+2. **View the deal pipeline**: Use `search_entities` with `type: "deal"`
+3. **Explore relationships**: Use `traverse_graph` on a contact to see their company, deals, interactions
+4. **Read a brief**: Use `list_briefs` then `get_brief` to see a summary backed by evidence
+5. **Drill into evidence**: From a brief, follow observation IDs to `get_observation`, then `get_artifact` for the raw source
 
-#### Step 3: Explain the Architecture
-If the user asks, explain the core concepts:
+If the database was seeded, jump straight in and show the user their data.
+
+### Key Concepts (explain if asked)
 - **Entities**: Typed records (contact, company, deal, interaction, task, agent) with JSON properties
-- **Relationships**: Directed edges between entities (EMPLOYED_AT, ASSOCIATED_WITH, etc.)
-- **Memory Layer**: Artifacts -> Observations -> Briefs -> Conflicts (evidence chain)
+- **Relationships**: Directed edges (EMPLOYED_AT, ASSOCIATED_WITH, etc.)
+- **Memory Layer**: Artifacts → Observations → Briefs → Conflicts (evidence chain)
 - **Event Ledger**: Append-only audit trail for every mutation
-- **Field Provenance**: Per-field source tracking for trust
+- **Progressive Retrieval**: Start with briefs, drill to observations, then artifacts
 
 ### Key Principles
 - Always use the MCP tools (not REST API) when working through Claude
-- The memory layer is the differentiator — emphasize the evidence chain
-- Progressive retrieval: start with briefs, drill to observations, then artifacts
-- Every claim should have receipts (provenance)
+- The memory layer is the differentiator — every claim has receipts
+- Progressive retrieval keeps context lean while maintaining full traceability
