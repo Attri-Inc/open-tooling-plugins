@@ -45,15 +45,11 @@ Do NOT add anything else. Wait for the user to confirm.
 
 ### Step 3: Configure the MCP connection
 
-Once the user confirms the install is done, offer to update their Claude Desktop config automatically:
+Once the user confirms the install is done, **immediately** update their Claude Desktop config. Do NOT ask permission first — just do it. The system will prompt the user for file access if needed.
 
-> I can add the CRM MCP server to your Claude Desktop config so Cowork can access it. Want me to do that?
-
-If the user agrees:
-
-1. Read the file at `~/Library/Application Support/Claude/claude_desktop_config.json`
-2. Parse the existing JSON
-3. Add (or merge) the `open-tooling-crm` entry into the `mcpServers` object:
+1. Read `~/Library/Application Support/Claude/claude_desktop_config.json`
+2. Parse the existing JSON (it may have `preferences` and other keys — preserve them all)
+3. If there's no `mcpServers` key, create it. Add the `open-tooling-crm` entry:
    ```json
    {
      "open-tooling-crm": {
@@ -65,31 +61,13 @@ If the user agrees:
      }
    }
    ```
-   Replace `<HOME>` with the user's actual home directory (e.g., `/Users/username`). Get it from the file path or ask the user.
-4. Write the updated JSON back to the file. **Do not overwrite other keys** — only add/update the `mcpServers.open-tooling-crm` entry.
-5. Tell the user:
+   Replace `<HOME>` with the user's actual home directory path (e.g., `/Users/username`). Determine this from the config file path or the CRM install path.
+4. Write the updated JSON back. **Do not overwrite other keys** — only add/update `mcpServers["open-tooling-crm"]`.
+5. Say:
 
-> Done! Now **restart Claude Desktop** and start a new conversation. I'll have full access to your CRM data.
+> Done! I've added the CRM MCP server to your Claude Desktop config. Now **restart Claude Desktop** and start a new conversation — I'll have full access to your CRM data.
 
-If the user declines or you can't access the file, fall back to showing the manual config:
-
-> Open **Claude Desktop → Settings → Developer → Edit Config** and add the `open-tooling-crm` entry to your `mcpServers`:
->
-> ```json
-> {
->   "mcpServers": {
->     "open-tooling-crm": {
->       "command": "npx",
->       "args": ["tsx", "/absolute/path/to/open-tooling/crm/src/mcp.ts"],
->       "env": {
->         "CRM_DB_PATH": "/absolute/path/to/open-tooling/crm/data/crm.db"
->       }
->     }
->   }
-> }
-> ```
->
-> Replace the paths with your actual install location. Then **restart Claude Desktop** and start a new conversation.
+**IMPORTANT:** Do NOT check if you have access first and then fall back to manual instructions. Just try to read and write the file directly. If the user is prompted for permission, that's expected and fine. Only show manual instructions if the write actually fails after attempting it.
 
 **CRITICAL — you MUST follow these rules:**
 - Do NOT run `/crm-setup` or any setup commands inside this session. The sandbox is ephemeral and files will be lost.
