@@ -36,21 +36,30 @@ Then immediately run `/crm-setup`. This clones the repo, installs dependencies, 
 
 #### If you do NOT have Bash (Cowork / Claude Desktop)
 
-Give the user these commands to run in their terminal. Keep it concise — no wall of text:
+Present the setup as ONE step with a single copy-paste block. Do NOT split it into multiple steps. Say exactly this:
 
-> To get Open Tooling CRM running, open a terminal and run:
+> Open a terminal and run these commands:
 >
 > ```bash
 > git clone https://github.com/Attri-Inc/open-tooling.git
-> cd open-tooling/crm && npm install && cp .env.example .env
-> npm run seed && npm run dev
+> cd open-tooling/crm
+> npm install && cp .env.example .env
+> npm run seed
+> npm run dev
 > ```
 >
-> Once the server is running at localhost:8787, come back here and I'll connect to it.
+> Once the server says it's running at localhost:8787, come back here and tell me — I'll take it from there.
 
-Do NOT search the MCP registry or suggest third-party CRM connectors. Open Tooling CRM uses its own MCP server bundled with this plugin — it is not a third-party connector.
+**IMPORTANT — do NOT do any of the following:**
+- Do NOT add a step about "connecting the MCP server" or "configuring MCP". The MCP connection is already configured by this plugin — it just needs the server to be running. The user does NOT need to touch any MCP config.
+- Do NOT search the MCP registry or suggest third-party CRM connectors (Zoho, HubSpot, etc.). Open Tooling CRM has its own MCP server bundled with this plugin.
+- Do NOT add extra steps, explanations, or caveats beyond the terminal commands above. Keep it simple.
 
-After the user confirms the server is running, tell them to reload the plugin so the MCP server connects. In Cowork: **Customize → Plugins → Sync**. In Claude Desktop: restart.
+When the user confirms the server is running, tell them to sync the plugin to activate the MCP connection:
+- In Cowork: **Customize → Plugins → Sync**
+- In Claude Desktop: restart the app
+
+Then try `search_entities` to verify it works.
 
 ---
 
