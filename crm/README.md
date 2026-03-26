@@ -18,17 +18,31 @@ Gives Claude the knowledge layer to use [Open Tooling CRM](https://github.com/At
 ## Getting Started
 
 1. **Install this plugin** from the [Open Tooling marketplace](https://github.com/Attri-Inc/open-tooling-plugins)
-2. **Run `/crm-setup`** — Claude handles everything: cloning the repo, installing dependencies, seeding sample data, and wiring up the MCP server
-3. **Run `/reload-plugins`** when prompted
-4. **Done** — all commands and skills are live
+2. **Clone and install** in your local terminal:
+   ```bash
+   git clone https://github.com/Attri-Inc/open-tooling.git ~/open-tooling
+   cd ~/open-tooling/crm
+   npm install && cp .env.example .env
+   npm run seed
+   ```
+3. **Add the MCP server to Claude Desktop** — open **Settings → Developer → Edit Config** and add:
+   ```json
+   {
+     "mcpServers": {
+       "open-tooling-crm": {
+         "command": "npx",
+         "args": ["tsx", "/absolute/path/to/open-tooling/crm/src/mcp.ts"],
+         "env": {
+           "CRM_DB_PATH": "/absolute/path/to/open-tooling/crm/data/crm.db"
+         }
+       }
+     }
+   }
+   ```
+   Replace the paths with your actual install location (e.g., `/Users/yourname/open-tooling/crm`).
+4. **Restart Claude Desktop** and start a new conversation — all commands and skills are live
 
-Or just ask Claude to "use Open Tooling CRM" — it detects that setup is needed and kicks it off automatically.
-
-Pass a custom install path if you don't want the default `~/open-tooling`:
-
-```
-/crm-setup ~/projects/open-tooling
-```
+Or just ask Claude to "use Open Tooling CRM" — it detects that setup is needed and walks you through it.
 
 ---
 
@@ -80,12 +94,11 @@ Without the plugin, Claude can call the tools but doesn't know the evidence-chai
 
 If you prefer to set things up yourself:
 
-1. `git clone https://github.com/Attri-Inc/open-tooling.git`
-2. `cd open-tooling/crm && npm install && cp .env.example .env`
+1. `git clone https://github.com/Attri-Inc/open-tooling.git ~/open-tooling`
+2. `cd ~/open-tooling/crm && npm install && cp .env.example .env`
 3. `npm run seed` (optional — populates sample data)
-4. `npm run dev`
-5. Connect the MCP server (see [main repo](https://github.com/Attri-Inc/open-tooling/tree/main/crm) for config)
-6. Create `~/.open-tooling/state.json` with `{"crm_path": "/path/to/open-tooling/crm"}` so the plugin knows setup is done
+4. Add the MCP server to `claude_desktop_config.json` (see Getting Started above for the JSON config)
+5. Restart Claude Desktop
 
 ---
 

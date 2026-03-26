@@ -41,20 +41,36 @@ The script handles everything:
 
 ## Step 2: Connect the MCP Server
 
-The plugin's `.mcp.json` already points to the launcher script that setup just created. Tell the user:
+The setup script auto-configures Claude Desktop's MCP config (on macOS). Tell the user:
 
-> Setup complete! Run **`/reload-plugins`** to connect the CRM's MCP server, then all commands and skills will be live.
+> Setup complete! **Restart Claude Desktop** to activate the CRM MCP server, then start a new conversation. All commands and skills will be live.
 
-Wait for the user to reload.
+If the script reported that it couldn't find Claude Desktop config (e.g., on Linux), tell the user to manually add the MCP server to their Claude Desktop config:
+
+```json
+{
+  "mcpServers": {
+    "open-tooling-crm": {
+      "command": "npx",
+      "args": ["tsx", "<CRM_PATH>/src/mcp.ts"],
+      "env": {
+        "CRM_DB_PATH": "<CRM_PATH>/data/crm.db"
+      }
+    }
+  }
+}
+```
+
+Replace `<CRM_PATH>` with the absolute path to the CRM directory (e.g., `/Users/foo/open-tooling/crm`).
 
 ## Step 3: Verify
 
-After the user reloads, verify by calling the `search_entities` MCP tool with no filters. If it responds, setup is fully complete.
+After the user restarts Claude Desktop and opens a new conversation, verify by calling the `search_entities` MCP tool with no filters. If it responds, setup is fully complete.
 
 If it fails, troubleshoot:
-- Check that `~/.open-tooling/start-mcp.sh` exists and is executable
 - Check that the CRM directory exists and has `node_modules/`
-- Try running the launcher manually: `bash ~/.open-tooling/start-mcp.sh`
+- Check that `claude_desktop_config.json` has the `open-tooling-crm` entry with correct absolute paths
+- Try running the MCP server manually: `cd ~/open-tooling/crm && npx tsx ./src/mcp.ts`
 
 ## Step 4: Show Next Steps
 

@@ -24,7 +24,7 @@ Try calling the `search_entities` MCP tool with no filters. This is the fastest 
 
 ### Step 2: Set up the CRM
 
-The user needs to install the CRM on their **local machine** (not in this sandbox/session). The plugin's MCP server runs from the user's real filesystem at `~/open-tooling/crm`.
+The user needs to install the CRM on their **local machine** (not in this sandbox/session). The plugin's MCP server needs to be registered with Claude Desktop so it can bridge into Cowork sessions.
 
 **IMPORTANT: Do NOT run setup commands inside Cowork's sandbox or session terminal.** Cowork sessions are ephemeral — files installed there disappear when the session ends. The user must run these commands in their own local terminal (e.g., iTerm, Terminal.app, Windows Terminal).
 
@@ -39,14 +39,30 @@ Say exactly this:
 > npm run seed
 > ```
 >
-> Then start a new conversation here and I'll have full access to your CRM data.
+> Then add the MCP server to Claude Desktop so Cowork can access it. Open **Claude Desktop → Settings → Developer → Edit Config** and add this to your `claude_desktop_config.json`:
+>
+> ```json
+> {
+>   "mcpServers": {
+>     "open-tooling-crm": {
+>       "command": "npx",
+>       "args": ["tsx", "~/open-tooling/crm/src/mcp.ts"],
+>       "env": {
+>         "CRM_DB_PATH": "~/open-tooling/crm/data/crm.db"
+>       }
+>     }
+>   }
+> }
+>
+> **Important:** Replace `~` with your actual home directory path (e.g., `/Users/yourname`). Merge the `mcpServers` key into your existing config if you already have other MCP servers.
+>
+> Then **restart Claude Desktop** and start a new conversation here. I'll have full access to your CRM data.
 
-That's it. There is only ONE step. Do not add anything else.
+That's it. Do not add anything else.
 
 **CRITICAL — you MUST follow these rules:**
 - Do NOT run `/crm-setup` or any setup commands inside this session. The sandbox is ephemeral and files will be lost.
-- There is NO step about "connecting the MCP server manually" or "configuring MCP". This plugin's .mcp.json automatically launches the CRM's MCP server from the user's local `~/open-tooling/crm` when a new conversation starts.
-- There is NO step about running `npm run dev`. The plugin launches the MCP server directly.
+- There is NO step about running `npm run dev`. The MCP server is launched directly by Claude Desktop.
 - There is NO step about syncing, updating, or reloading the plugin.
 - Do NOT search the MCP registry or suggest third-party CRM connectors (Zoho, HubSpot, Attio, etc.).
 - Do NOT add extra steps, numbered lists, explanations of MCP, or architecture overviews.

@@ -94,6 +94,37 @@ SCRIPT
 chmod +x "$LAUNCHER"
 ok "MCP launcher created at $LAUNCHER"
 
+# ── Configure Claude Desktop MCP (required for Cowork) ─────────────────────
+
+CLAUDE_CONFIG_DIR="$HOME/Library/Application Support/Claude"
+CLAUDE_CONFIG="$CLAUDE_CONFIG_DIR/claude_desktop_config.json"
+
+if [ -d "$CLAUDE_CONFIG_DIR" ]; then
+  info "Configuring Claude Desktop MCP server…"
+
+  # Use node to safely merge MCP config into existing Claude Desktop config
+  node -e "
+    const fs = require('fs');
+    const configPath = process.argv[1];
+    const crmDir = process.argv[2];
+    let config = {};
+    try { config = JSON.parse(fs.readFileSync(configPath, 'utf8')); } catch {}
+    if (!config.mcpServers) config.mcpServers = {};
+    config.mcpServers['open-tooling-crm'] = {
+      command: 'npx',
+      args: ['tsx', crmDir + '/src/mcp.ts'],
+      env: { CRM_DB_PATH: crmDir + '/data/crm.db' }
+    };
+    fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n');
+  " "$CLAUDE_CONFIG" "$CRM_DIR"
+
+  ok "Claude Desktop MCP server configured"
+  warn "Restart Claude Desktop to activate the MCP connection"
+else
+  warn "Claude Desktop config not found — skipping MCP auto-config"
+  warn "For Cowork: manually add MCP server config to Claude Desktop settings"
+fi
+
 # ── Print summary ───────────────────────────────────────────────────────────
 
 echo ""
@@ -102,5 +133,6 @@ echo "│  Open Tooling CRM is ready!                 │"
 echo "├─────────────────────────────────────────────┤"
 echo "│  Location : $CRM_DIR"
 echo "│  MCP      : $LAUNCHER"
+echo "│  Desktop  : Restart Claude to connect MCP   │"
 echo "└─────────────────────────────────────────────┘"
 echo ""
