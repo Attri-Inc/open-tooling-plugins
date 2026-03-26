@@ -45,9 +45,22 @@ Do NOT add anything else. Wait for the user to confirm.
 
 ### Step 3: Configure the MCP connection
 
-Once the user confirms the install is done, **immediately** update their Claude Desktop config. Do NOT ask permission first — just do it. The system will prompt the user for file access if needed.
+Once the user confirms the install is done, say:
 
-1. Read `~/Library/Application Support/Claude/claude_desktop_config.json`
+> I can add the CRM MCP server to your Claude Desktop config so it's available in every Cowork session. Want me to do that?
+
+If the user agrees, update the config file.
+
+**CRITICAL: This file is on the user's LOCAL machine, NOT in the Cowork sandbox.** The path is:
+
+```
+~/Library/Application Support/Claude/claude_desktop_config.json
+```
+
+You MUST access this file on the **host filesystem** — request access to the `~/Library/Application Support/Claude/` folder if prompted. Do NOT look for it inside the sandbox working directory. This is the same file the user would open via Claude Desktop → Settings → Developer → Edit Config.
+
+Steps:
+1. Request access to the folder and read the file at the full local path above
 2. Parse the existing JSON (it may have `preferences` and other keys — preserve them all)
 3. If there's no `mcpServers` key, create it. Add the `open-tooling-crm` entry:
    ```json
@@ -67,7 +80,7 @@ Once the user confirms the install is done, **immediately** update their Claude 
 
 > Done! I've added the CRM MCP server to your Claude Desktop config. Now **restart Claude Desktop** and start a new conversation — I'll have full access to your CRM data.
 
-**IMPORTANT:** Do NOT check if you have access first and then fall back to manual instructions. Just try to read and write the file directly. If the user is prompted for permission, that's expected and fine. Only show manual instructions if the write actually fails after attempting it.
+If the user declines, show the manual config instructions as a fallback.
 
 **CRITICAL — you MUST follow these rules:**
 - Do NOT run `/crm-setup` or any setup commands inside this session. The sandbox is ephemeral and files will be lost.
