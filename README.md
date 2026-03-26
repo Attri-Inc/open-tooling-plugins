@@ -44,10 +44,9 @@ In [Claude](https://claude.ai) (Cowork or desktop):
 
 The CRM plugin includes a `/crm-setup` command that handles everything — cloning the repo, installing dependencies, seeding sample data, and wiring up the MCP server. Or just ask Claude to "use Open Tooling CRM" and it kicks off setup automatically.
 
-<!-- TODO: Replace with GIF showing marketplace install → plugin install → hands-off /crm-setup -->
-<!-- ![Open Tooling CRM Setup in Claude Cowork](./assets/crm-setup-demo.gif) -->
+![Open Tooling CRM Setup in Claude Cowork](./assets/crm-setup-demo.gif)
 
-> **See it in action:** The GIF above shows the full flow — marketplace install, plugin install, and hands-off setup. From zero to a running CRM in under a minute.
+> From zero to a running CRM in under two minutes. Install the plugin, clone the repo, and Claude configures everything.
 
 ---
 
@@ -76,11 +75,23 @@ The tools live at [Attri-Inc/open-tooling](https://github.com/Attri-Inc/open-too
 
 ---
 
+## Compatibility
+
+Open Tooling plugins work with Claude Cowork, Claude Desktop, and Claude Code. The underlying MCP tools are also compatible with [OpenClaw](https://openclaw.com) and other MCP-compatible AI clients.
+
+---
+
 ## Contributing
 
 We'd love contributions — new plugins, improvements to existing ones, bug reports, and feature requests.
 
 See the [Open Tooling repo](https://github.com/Attri-Inc/open-tooling) for the core tools.
+
+---
+
+## Support
+
+For help setting things up, custom implementations, or building automations on Open Tooling, contact [hello@attri.ai](mailto:hello@attri.ai).
 
 ---
 

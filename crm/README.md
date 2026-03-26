@@ -8,10 +8,9 @@ Gives Claude the knowledge layer to use [Open Tooling CRM](https://github.com/At
 
 ## See It in Action
 
-<!-- TODO: Replace with GIF showing marketplace install → plugin install → /crm-setup → first query -->
-<!-- ![CRM Plugin Setup Demo](../assets/crm-setup-demo.gif) -->
+![CRM Plugin Setup Demo](../assets/crm-setup-demo.gif)
 
-> **GIF placeholder:** Marketplace install → plugin install → hands-off `/crm-setup` → first CRM query. Zero manual configuration.
+> From zero to a running CRM in under two minutes. Install the plugin, clone the repo, and Claude configures everything.
 
 ---
 
@@ -124,5 +123,13 @@ None required. The plugin works fully with just the CRM's MCP server.
 
 This is the first plugin in the [Open Tooling](https://github.com/Attri-Inc/open-tooling) family. More modules and plugins coming — HR, Finance, Project Management, Procurement — each with their own dedicated plugin that teaches Claude domain-specific reasoning.
 
+Also compatible with [OpenClaw](https://openclaw.com) and other MCP-compatible AI clients.
+
 Plugin marketplace: [Attri-Inc/open-tooling-plugins](https://github.com/Attri-Inc/open-tooling-plugins)
 Core tools: [Attri-Inc/open-tooling](https://github.com/Attri-Inc/open-tooling)
+
+---
+
+## Support
+
+For help setting it up, custom implementations, or building automations on Open Tooling CRM, contact [hello@attri.ai](mailto:hello@attri.ai).
