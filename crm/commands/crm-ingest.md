@@ -3,10 +3,9 @@ description: "Ingest an email, transcript, or document into the CRM evidence cha
 argument-hint: "paste or describe the content to ingest"
 ---
 
-## CRM Status
-!`cat ~/.open-tooling/state.json 2>/dev/null || echo '{"setup_required": true}'`
+## CRM Status Check
 
-**If `setup_required` is true above, stop here.** Tell the user: "Open Tooling CRM isn't set up yet. Run `/crm-setup` first to get everything installed and connected."
+Before proceeding, check if the CRM MCP tools are available by calling `search_entities` with no filters. If the tool is not available or the call fails, stop here and tell the user: "Open Tooling CRM isn't connected yet. Run `/crm-setup` first to get everything installed and connected."
 
 ---
 
