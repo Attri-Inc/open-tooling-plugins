@@ -22,9 +22,9 @@ Try calling the `search_entities` MCP tool with no filters. This is the fastest 
 - **If it works** → skip to "CRM is Connected" below.
 - **If the tool is not available or fails** → the CRM needs to be set up. Continue to Step 2.
 
-### Step 2: Set up the CRM
+### Step 2: Install the CRM locally
 
-The user needs to install the CRM on their **local machine** (not in this sandbox/session). The plugin's MCP server needs to be registered with Claude Desktop so it can bridge into Cowork sessions.
+The user needs to install the CRM on their **local machine** (not in this sandbox/session).
 
 **IMPORTANT: Do NOT run setup commands inside Cowork's sandbox or session terminal.** Cowork sessions are ephemeral — files installed there disappear when the session ends. The user must run these commands in their own local terminal (e.g., iTerm, Terminal.app, Windows Terminal).
 
@@ -39,26 +39,57 @@ Say exactly this:
 > npm run seed
 > ```
 >
-> Then add the MCP server to Claude Desktop so Cowork can access it. Open **Claude Desktop → Settings → Developer → Edit Config** and add this to your `claude_desktop_config.json`:
+> Let me know when that's done and I'll configure the MCP connection for you.
+
+Do NOT add anything else. Wait for the user to confirm.
+
+### Step 3: Configure the MCP connection
+
+Once the user confirms the install is done, offer to update their Claude Desktop config automatically:
+
+> I can add the CRM MCP server to your Claude Desktop config so Cowork can access it. Want me to do that?
+
+If the user agrees:
+
+1. Read the file at `~/Library/Application Support/Claude/claude_desktop_config.json`
+2. Parse the existing JSON
+3. Add (or merge) the `open-tooling-crm` entry into the `mcpServers` object:
+   ```json
+   {
+     "open-tooling-crm": {
+       "command": "npx",
+       "args": ["tsx", "<HOME>/open-tooling/crm/src/mcp.ts"],
+       "env": {
+         "CRM_DB_PATH": "<HOME>/open-tooling/crm/data/crm.db"
+       }
+     }
+   }
+   ```
+   Replace `<HOME>` with the user's actual home directory (e.g., `/Users/username`). Get it from the file path or ask the user.
+4. Write the updated JSON back to the file. **Do not overwrite other keys** — only add/update the `mcpServers.open-tooling-crm` entry.
+5. Tell the user:
+
+> Done! Now **restart Claude Desktop** and start a new conversation. I'll have full access to your CRM data.
+
+If the user declines or you can't access the file, fall back to showing the manual config:
+
+> Open **Claude Desktop → Settings → Developer → Edit Config** and add the `open-tooling-crm` entry to your `mcpServers`:
 >
 > ```json
 > {
 >   "mcpServers": {
 >     "open-tooling-crm": {
 >       "command": "npx",
->       "args": ["tsx", "~/open-tooling/crm/src/mcp.ts"],
+>       "args": ["tsx", "/absolute/path/to/open-tooling/crm/src/mcp.ts"],
 >       "env": {
->         "CRM_DB_PATH": "~/open-tooling/crm/data/crm.db"
+>         "CRM_DB_PATH": "/absolute/path/to/open-tooling/crm/data/crm.db"
 >       }
 >     }
 >   }
 > }
+> ```
 >
-> **Important:** Replace `~` with your actual home directory path (e.g., `/Users/yourname`). Merge the `mcpServers` key into your existing config if you already have other MCP servers.
->
-> Then **restart Claude Desktop** and start a new conversation here. I'll have full access to your CRM data.
-
-That's it. Do not add anything else.
+> Replace the paths with your actual install location. Then **restart Claude Desktop** and start a new conversation.
 
 **CRITICAL — you MUST follow these rules:**
 - Do NOT run `/crm-setup` or any setup commands inside this session. The sandbox is ephemeral and files will be lost.
@@ -66,8 +97,6 @@ That's it. Do not add anything else.
 - There is NO step about syncing, updating, or reloading the plugin.
 - Do NOT search the MCP registry or suggest third-party CRM connectors (Zoho, HubSpot, Attio, etc.).
 - Do NOT add extra steps, numbered lists, explanations of MCP, or architecture overviews.
-
-After the user starts a new conversation, try `search_entities` to verify it works.
 
 ---
 
